@@ -40,11 +40,12 @@ def login(request):
     return redirect('/')
 
 def success(request):
-    context = {'this_user': User.objects.get(id=request.session['user_id'])}
-    return render(request, 'success.html', context)
+    if 'user_id' not in request.session:
+        return redirect('/')
+    else:
+        context = {'this_user': User.objects.get(id=request.session['user_id'])}
+        return render(request, 'success.html', context)
 
 def logout(request):
-    if request.method == 'POST':
-        request.session.flush()
-        return redirect ('/')
-    else: return redirect('/')
+    request.session.flush()
+    return redirect ('/')
