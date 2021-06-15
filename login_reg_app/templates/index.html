@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {%load static%}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Login and Registration</title>
+</head>
+<body>
+    <div>
+        <h2>Register</h2>
+        {%if messages%}
+        <ul>
+            {%for message in messages%}
+                <li class="flash">{{message}}</li>
+            {%endfor%}
+        </ul>
+        {% endif %}
+        <form action="/user/create" method="POST">
+            {% csrf_token %}
+            <label for="first_name">First Name:</label>
+            <input type="text" name="first_name">
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name">
+            <label for="email">Email:</label>
+            <input type="email" name="email">
+            <label for="password">Password:</label>
+            <input type="password" name="password">
+            <label for="password_conf">Confirm Password:</label>
+            <input type="password" name="password_conf">
+            <input type="submit" value="Register">
+        </form>
+    </div>
+    <div>
+        <h2>Login</h2>
+        <form action="/user/login" method="POST">
+            {% csrf_token %}
+            <label for="email">Email:</label>
+            <input type="email" name="email">
+            <label for="password">Password:</label>
+            <input type="password" name="password">
+            <input type="submit" value="Login">
+        </form>
+    </div>
+
+</body>
+</html>
